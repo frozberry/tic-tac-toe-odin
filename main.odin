@@ -14,6 +14,13 @@ main :: proc() {
 
     // Currently loops over all squares instead of accepting user input
     for i := 0; i < 10; i += 1 {
+        input: = i;
+
+        if (!valid_square(game.board, input)) {
+            fmt.println("Invalid square, please select again")
+            continue
+        }
+
         if game.p1_turn {
             game.board[i] = "o"
         } else {
@@ -44,6 +51,12 @@ render_board :: proc(board: [9]string) {
     fmt.printf("%s | %s | %s\n", board[3], board[4], board[5])
     fmt.printf("----------\n")
     fmt.printf("%s | %s | %s\n\n", board[6], board[7], board[8])
+}
+
+valid_square ::proc(board: [9]string, square: int) -> bool {
+    empty := board[square] == " "
+    in_range := square >= 0 && square <= 8
+    return empty && in_range
 }
 
 game_over :: proc(board: [9]string) -> bool {
