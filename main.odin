@@ -1,12 +1,10 @@
 package main
-
 import "core:fmt"
 
 Game :: struct {
     board: [9]string,
     p1_turn: bool,
 }
-
 
 main :: proc() {
     board := [9]string{" ", " ", " "," ", " ", " ", " ", " ", " "}
@@ -42,8 +40,6 @@ main :: proc() {
         game.p1_turn = !game.p1_turn
     }
 }
-
-
 
 render_board :: proc(board: [9]string) {
     fmt.printf("%s | %s | %s\n", board[0], board[1], board[2])
