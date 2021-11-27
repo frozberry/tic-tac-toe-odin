@@ -2,23 +2,29 @@ package main
 
 import "core:fmt"
 
+Game :: struct {
+    board: [9]string,
+    p1_turn: bool,
+}
+
+
 main :: proc() {
     board := [9]string{" ", " ", " "," ", " ", " ", " ", " ", " "}
-    p1_turn := true
+    game := Game{board, true}
 
     // Currently loops over all squares instead of accepting user input
     for i := 0; i < 10; i += 1 {
-        if p1_turn {
-            board[i] = "o"
+        if game.p1_turn {
+            game.board[i] = "o"
         } else {
-            board[i] = "x"
+            game.board[i] = "x"
         }
 
-        render_board(board)
+        render_board(game.board)
 
-        if game_over(board) {
+        if game_over(game.board) {
             // Is there a shorter way to do this? Ternary?
-            if p1_turn {
+            if game.p1_turn {
                 fmt.printf("Player 1 wins")
             } else {
                 fmt.printf("Player 2 wins")
@@ -26,9 +32,11 @@ main :: proc() {
             break
         }
 
-        p1_turn = !p1_turn
+        game.p1_turn = !game.p1_turn
     }
 }
+
+
 
 render_board :: proc(board: [9]string) {
     fmt.printf("%s | %s | %s\n", board[0], board[1], board[2])
